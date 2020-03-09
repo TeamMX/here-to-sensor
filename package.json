@@ -1,0 +1,23 @@
+{
+  "name": "here-to-sensor-map",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "npm run build && npm start",
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/shapefile": "^0.6.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "shapefile": "^0.6.6"
+  }
+}
