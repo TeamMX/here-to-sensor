@@ -1,2 +1,5 @@
 node_modules
 dist
+/Streets.dbf
+/Streets.shp
+/sensor-segment-map.csv

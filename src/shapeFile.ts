@@ -1,6 +1,20 @@
 import * as shapefile from 'shapefile';
 
-export async function * openShapeFile(path: string) {
+interface LatLng {
+    lat: number;
+    lng: number;
+}
+
+interface Shape {
+    id: string;
+    waypoints: LatLng[];
+}
+
+export async function openShapeFile(path: string, callback: (shape: Shape) => void) {
+    _openShapeFile(path, callback);
+}
+
+async function _openShapeFile(path: string, callback: (shape: Shape) => void) {
     const file = await shapefile.open(path);
     for (let line = await file.read(); !line.done; line = await file.read()) {
 
@@ -14,18 +28,12 @@ export async function * openShapeFile(path: string) {
 
         const isForwards = properties.DIR_TRAVEL !== 'F';
         if (isForwards) {
-            yield {
-                id: id + 'T',
-                waypoints,
-            }
+            callback({ id: id + 'T', waypoints });
         }
 
         const isBackwards = properties.DIR_TRAVEL !== 'T';
         if (isBackwards) {
-            yield {
-                id: id + 'F',
-                waypoints: waypoints.reverse(),
-            }
+            callback({ id: id + 'F', waypoints: waypoints.reverse() });
         }
     }
 }
